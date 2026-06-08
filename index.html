@@ -1,0 +1,829 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WaterSom Solutions</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#dff0fc;
+  --bg2:#c8e6f9;
+  --bg3:#b3d9f7;
+  --navy:#0a1f44;
+  --blue:#0f52a0;
+  --bright:#1976d2;
+  --accent:#0288d1;
+  --foam:#0277bd;
+  --text:#1a3a5c;
+  --muted:#3a6080;
+  --border:#90c8f0;
+  --white:#ffffff;
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--navy);overflow-x:hidden}
+
+/* NAV */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:200;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0.6rem 2.5rem;
+  background:rgba(180,220,248,0.97);
+  backdrop-filter:blur(16px);
+  border-bottom:1px solid var(--border);
+  box-shadow:0 2px 20px rgba(15,82,160,0.12);
+}
+.logo{display:flex;align-items:center;gap:0.7rem;text-decoration:none;flex-shrink:0}
+.logo-icon{width:70px;height:70px;flex-shrink:0;border-radius:50%;overflow:hidden;border:2.5px solid #f47920;box-shadow:0 0 12px rgba(2,136,209,0.2);background:#fff;display:flex;align-items:center;justify-content:center}
+.logo-text{font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:700;color:var(--navy);line-height:1.1}
+.logo-text .sub{display:block;font-size:0.65rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--accent);font-family:'DM Sans',sans-serif;font-weight:500}
+.banaadir-logo{width:70px;height:70px;object-fit:contain;flex-shrink:0;border-radius:50%;background:#fff;border:2.5px solid var(--border);box-shadow:0 0 12px rgba(2,136,209,0.2)}
+.nav-center{display:flex;gap:1.6rem;list-style:none;margin:0 auto;flex-wrap:wrap;justify-content:center}
+.nav-center a{text-decoration:none;color:var(--text);font-size:0.78rem;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;transition:color 0.2s;padding-bottom:2px;border-bottom:2px solid transparent}
+.nav-center a:hover,.nav-center a.active{color:var(--accent);border-bottom-color:var(--accent)}
+.nav-right{display:flex;align-items:center;gap:1rem;flex-shrink:0}
+.nav-cta{padding:0.5rem 1.2rem;background:linear-gradient(135deg,var(--bright),var(--blue));border-radius:100px;color:white!important;border-bottom:none!important;font-weight:600!important;font-size:0.78rem;text-decoration:none;box-shadow:0 4px 14px rgba(15,82,160,0.25)}
+
+/* LANGUAGE SELECTOR */
+.lang-select{position:relative;font-family:'DM Sans',sans-serif}
+.lang-select select{appearance:none;-webkit-appearance:none;background:rgba(255,255,255,0.7);border:1px solid var(--border);border-radius:100px;color:var(--navy);font-size:0.78rem;font-weight:600;padding:0.45rem 1.9rem 0.45rem 0.9rem;cursor:pointer;outline:none}
+.lang-select::after{content:"\25BE";position:absolute;right:0.7rem;top:50%;transform:translateY(-50%);pointer-events:none;color:var(--accent);font-size:0.7rem}
+.mobile-nav .lang-select select{font-size:1rem;padding:0.6rem 2.2rem 0.6rem 1.1rem}
+/* Hide Google Translate banner/branding */
+.goog-te-banner-frame,.skiptranslate{display:none!important}
+body{top:0!important}
+#google_translate_element{display:none}
+.goog-tooltip,.goog-tooltip:hover{display:none!important}
+.goog-text-highlight{background:none!important;box-shadow:none!important}
+
+/* HERO */
+.hero{
+  position:relative;z-index:10;min-height:100vh;
+  display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:4rem;
+  padding:8rem 4rem 6rem;
+  background:linear-gradient(135deg,#c8e6f9 0%,#b3d9f7 50%,#9ecef5 100%);
+  overflow:hidden;
+}
+.hero::before{
+  content:'';position:absolute;top:-100px;right:-100px;
+  width:600px;height:600px;border-radius:50%;
+  background:radial-gradient(circle,rgba(2,136,209,0.08) 0%,transparent 70%);
+  pointer-events:none;
+}
+.hero::after{
+  content:'';position:absolute;bottom:-80px;left:-80px;
+  width:400px;height:400px;border-radius:50%;
+  background:radial-gradient(circle,rgba(15,82,160,0.06) 0%,transparent 70%);
+  pointer-events:none;
+}
+.hero-wave{position:absolute;bottom:0;left:0;right:0;line-height:0;pointer-events:none}
+.hero-content{position:relative;z-index:2}
+.badge{display:inline-flex;align-items:center;gap:0.5rem;font-size:0.68rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--accent);border:1px solid rgba(2,136,209,0.35);padding:0.4rem 1rem;border-radius:100px;margin-bottom:2rem;background:rgba(2,136,209,0.06);animation:fadeUp 0.8s ease both}
+.hero h1{font-family:'Playfair Display',serif;font-size:clamp(2.5rem,4vw,4.2rem);font-weight:900;line-height:1.06;margin-bottom:1.4rem;color:var(--navy);animation:fadeUp 0.8s 0.15s ease both}
+.hero h1 em{font-style:italic;background:linear-gradient(135deg,var(--accent),var(--bright));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero p{font-size:1rem;line-height:1.78;color:var(--text);margin-bottom:2.4rem;font-weight:300;animation:fadeUp 0.8s 0.3s ease both}
+.hero-btns{display:flex;gap:1rem;flex-wrap:wrap;animation:fadeUp 0.8s 0.45s ease both}
+.btn-primary{padding:0.9rem 2.2rem;background:linear-gradient(135deg,var(--bright),var(--blue));color:#fff;border:none;border-radius:100px;font-family:'DM Sans',sans-serif;font-size:0.88rem;font-weight:700;cursor:pointer;text-decoration:none;box-shadow:0 8px 24px rgba(15,82,160,0.3);transition:transform 0.2s,box-shadow 0.2s}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 12px 32px rgba(15,82,160,0.4)}
+.btn-ghost{padding:0.9rem 2.2rem;background:transparent;color:var(--blue);border:1.5px solid var(--accent);border-radius:100px;font-family:'DM Sans',sans-serif;font-size:0.88rem;font-weight:500;cursor:pointer;text-decoration:none;transition:background 0.2s,color 0.2s}
+.btn-ghost:hover{background:var(--accent);color:#fff}
+.stats{display:flex;gap:2.5rem;margin-top:3rem;padding-top:2.5rem;border-top:1px solid var(--border);animation:fadeUp 0.8s 0.6s ease both;flex-wrap:wrap}
+.stat-val{font-family:'Playfair Display',serif;font-size:2rem;font-weight:700;color:var(--blue);line-height:1}
+.stat-label{font-size:0.66rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--muted);margin-top:0.3rem}
+
+/* HERO IMAGE */
+.hero-img-wrap{position:relative;z-index:2;animation:fadeUp 0.8s 0.3s ease both}
+.hero-img-wrap img{width:100%;height:460px;object-fit:cover;border-radius:24px;border:1px solid var(--border);box-shadow:0 20px 60px rgba(15,82,160,0.15)}
+.hero-img-badge{position:absolute;bottom:1.5rem;left:1.5rem;background:rgba(255,255,255,0.92);backdrop-filter:blur(10px);border:1px solid var(--border);border-radius:12px;padding:0.8rem 1.2rem;box-shadow:0 4px 20px rgba(15,82,160,0.12)}
+.hero-img-badge p{font-size:0.75rem;color:var(--navy);font-weight:600}
+.hero-img-badge span{font-size:0.65rem;color:var(--muted);font-weight:300}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+
+/* SECTIONS */
+section{position:relative;z-index:10;padding:6rem 4rem}
+.alt-bg{background:var(--bg2)}
+.section-tag{display:block;text-align:center;font-size:0.66rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--accent);margin-bottom:1rem}
+.section-title{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,3.2vw,2.6rem);font-weight:700;text-align:center;margin-bottom:0.8rem;color:var(--navy)}
+.section-title span{background:linear-gradient(135deg,var(--accent),var(--bright));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;font-style:italic}
+.section-sub{text-align:center;color:var(--muted);font-size:0.9rem;font-weight:300;max-width:500px;margin:0 auto 3.5rem;line-height:1.78}
+
+/* CARDS */
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.3rem;max-width:1160px;margin:0 auto}
+.card{background:#fff;border:1px solid var(--border);border-radius:20px;padding:1.8rem;transition:transform 0.3s,box-shadow 0.3s,border-color 0.3s;box-shadow:0 4px 16px rgba(15,82,160,0.06)}
+.card:hover{transform:translateY(-5px);border-color:var(--accent);box-shadow:0 16px 40px rgba(15,82,160,0.15)}
+.card-icon{width:48px;height:48px;background:linear-gradient(135deg,rgba(15,82,160,0.1),rgba(2,136,209,0.08));border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:1.3rem;margin-bottom:1rem;border:1px solid var(--border)}
+.card h3{font-family:'Playfair Display',serif;font-size:1.08rem;font-weight:700;margin-bottom:0.6rem;color:var(--navy)}
+.card p,.card ul{color:var(--muted);font-size:0.84rem;line-height:1.7;font-weight:400}
+.card ul{padding-left:1rem}
+.card ul li{margin-bottom:0.2rem}
+
+/* VM */
+.vm-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;max-width:860px;margin:0 auto 2.5rem}
+.vm-box{background:#fff;border:1px solid var(--border);border-radius:20px;padding:2.2rem;box-shadow:0 4px 16px rgba(15,82,160,0.06)}
+.vm-box h3{font-family:'Playfair Display',serif;font-size:1.2rem;color:var(--blue);margin-bottom:0.7rem}
+.vm-box p{color:var(--text);font-size:0.9rem;line-height:1.75;font-weight:300}
+.values-grid{display:flex;flex-wrap:wrap;gap:0.6rem;justify-content:center;max-width:760px;margin:0 auto}
+.value-pill{padding:0.55rem 1.2rem;border-radius:100px;font-size:0.82rem;font-weight:600;transition:transform 0.2s,box-shadow 0.2s;border:none;cursor:default}
+.value-pill:nth-child(1){background:#fff3e0;color:#e65100}
+.value-pill:nth-child(2){background:#fce4ec;color:#c62828}
+.value-pill:nth-child(3){background:#e8f5e9;color:#2e7d32}
+.value-pill:nth-child(4){background:#e3f2fd;color:#0d47a1}
+.value-pill:nth-child(5){background:#f3e5f5;color:#6a1b9a}
+.value-pill:nth-child(6){background:#e0f7fa;color:#006064}
+.value-pill:hover{transform:translateY(-2px);box-shadow:0 6px 18px rgba(0,0,0,0.12)}
+
+/* CHAIN */
+.chain{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:0.3rem;max-width:1020px;margin:0 auto 3rem}
+.chain-step{border-radius:14px;padding:1.1rem 1.2rem;text-align:center;min-width:120px;transition:transform 0.3s,box-shadow 0.3s;box-shadow:0 4px 14px rgba(0,0,0,0.08);border:none}
+.chain-step:nth-child(1){background:#e3f2fd;}
+.chain-step:nth-child(3){background:#e8f5e9;}
+.chain-step:nth-child(5){background:#fff3e0;}
+.chain-step:nth-child(7){background:#fce4ec;}
+.chain-step:nth-child(9){background:#f3e5f5;}
+.chain-step:nth-child(11){background:#e0f7fa;}
+.chain-step:nth-child(13){background:#fff8e1;}
+.chain-step:hover{transform:translateY(-4px);box-shadow:0 10px 28px rgba(0,0,0,0.14)}
+.chain-step span{font-size:1.4rem;display:block;margin-bottom:0.35rem}
+.chain-step:nth-child(1) p{color:#0d47a1;font-size:0.75rem;font-weight:700;letter-spacing:0.04em}
+.chain-step:nth-child(3) p{color:#1b5e20;font-size:0.75rem;font-weight:700;letter-spacing:0.04em}
+.chain-step:nth-child(5) p{color:#e65100;font-size:0.75rem;font-weight:700;letter-spacing:0.04em}
+.chain-step:nth-child(7) p{color:#880e4f;font-size:0.75rem;font-weight:700;letter-spacing:0.04em}
+.chain-step:nth-child(9) p{color:#4a148c;font-size:0.75rem;font-weight:700;letter-spacing:0.04em}
+.chain-step:nth-child(11) p{color:#006064;font-size:0.75rem;font-weight:700;letter-spacing:0.04em}
+.chain-step:nth-child(13) p{color:#f57f17;font-size:0.75rem;font-weight:700;letter-spacing:0.04em}
+.chain-arrow{color:var(--accent);font-size:1.1rem;padding:0 0.2rem}
+
+/* SPLIT */
+.split{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;max-width:1160px;margin:0 auto}
+.split.reverse{direction:rtl}
+.split.reverse>*{direction:ltr}
+.split-img{border-radius:20px;overflow:hidden;position:relative}
+.split-img img{width:100%;height:380px;object-fit:cover;display:block;border-radius:20px;border:1px solid var(--border);box-shadow:0 8px 30px rgba(15,82,160,0.1);transition:transform 0.5s}
+.split-img:hover img{transform:scale(1.03)}
+.split-text h2{font-family:'Playfair Display',serif;font-size:clamp(1.6rem,2.5vw,2.2rem);font-weight:700;margin-bottom:1rem;line-height:1.2;color:var(--navy)}
+.split-text h2 span{background:linear-gradient(135deg,var(--accent),var(--bright));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;font-style:italic}
+.split-text p{color:var(--text);font-size:0.92rem;line-height:1.8;font-weight:300;margin-bottom:1rem}
+.split-text ul{color:var(--muted);font-size:0.88rem;line-height:1.9;font-weight:400;padding-left:1.2rem}
+
+/* PHOTO STRIP */
+.photo-strip{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;max-width:1160px;margin:3rem auto 0}
+.photo-strip img{width:100%;height:220px;object-fit:cover;border-radius:16px;border:1px solid var(--border);transition:transform 0.3s,box-shadow 0.3s;box-shadow:0 4px 16px rgba(15,82,160,0.08)}
+.photo-strip img:hover{transform:scale(1.02);box-shadow:0 12px 36px rgba(15,82,160,0.18)}
+
+/* PPP */
+.ppp-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:1.1rem;max-width:860px;margin:0 auto 2.5rem}
+.ppp-box{border-radius:16px;padding:1.6rem;text-align:center;transition:transform 0.3s,box-shadow 0.3s;box-shadow:0 4px 14px rgba(0,0,0,0.08);border:none}
+.ppp-box:nth-child(1){background:#e3f2fd;}
+.ppp-box:nth-child(2){background:#e8f5e9;}
+.ppp-box:nth-child(3){background:#fff3e0;}
+.ppp-box:nth-child(4){background:#fce4ec;}
+.ppp-box:hover{transform:translateY(-4px);box-shadow:0 10px 28px rgba(0,0,0,0.13)}
+.ppp-box .icon{font-size:1.9rem;margin-bottom:0.6rem}
+.ppp-box:nth-child(1) h4{color:#0d47a1}
+.ppp-box:nth-child(2) h4{color:#1b5e20}
+.ppp-box:nth-child(3) h4{color:#e65100}
+.ppp-box:nth-child(4) h4{color:#880e4f}
+.ppp-box h4{font-size:0.88rem;font-weight:700;margin-bottom:0.35rem}
+.ppp-box p{font-size:0.78rem;font-weight:300;line-height:1.6;color:var(--muted)}
+
+/* CTA */
+.cta-section{
+  position:relative;z-index:10;margin:0 4rem 6rem;
+  background:linear-gradient(135deg,var(--blue) 0%,var(--bright) 100%);
+  border-radius:26px;padding:5rem 4rem;text-align:center;overflow:hidden;
+  box-shadow:0 20px 60px rgba(15,82,160,0.25);
+}
+.cta-section::before{content:'';position:absolute;top:-40%;left:-10%;width:450px;height:450px;background:radial-gradient(ellipse,rgba(255,255,255,0.1) 0%,transparent 65%);border-radius:50%;pointer-events:none}
+.cta-section h2{font-family:'Playfair Display',serif;font-size:clamp(1.7rem,2.8vw,2.6rem);font-weight:900;margin-bottom:0.8rem;color:#fff;position:relative;z-index:1}
+.cta-section>p{color:rgba(255,255,255,0.8);font-size:0.94rem;font-weight:300;margin-bottom:2rem;position:relative;z-index:1}
+.cta-tagline{font-style:italic;color:rgba(255,255,255,0.6);font-size:0.85rem;margin-top:1.8rem;position:relative;z-index:1}
+.btn-cta{padding:0.9rem 2.4rem;background:#fff;color:var(--blue);border:none;border-radius:100px;font-family:'DM Sans',sans-serif;font-size:0.9rem;font-weight:700;cursor:pointer;text-decoration:none;display:inline-block;box-shadow:0 8px 24px rgba(0,0,0,0.15);transition:transform 0.2s;position:relative;z-index:1}
+.btn-cta:hover{transform:translateY(-2px)}
+
+/* FOOTER */
+footer{position:relative;z-index:10;border-top:1px solid var(--border);padding:3rem 4rem;display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:3rem;background:var(--bg2)}
+.footer-col h4{font-size:0.68rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--accent);margin-bottom:1rem}
+.footer-col p,.footer-col a{color:var(--muted);font-size:0.82rem;line-height:1.85;text-decoration:none;display:block;font-weight:300}
+.footer-col a:hover{color:var(--blue)}
+.footer-desc{color:var(--muted);font-size:0.82rem;line-height:1.8;font-weight:300;margin-top:0.6rem}
+.footer-bottom{position:relative;z-index:10;border-top:1px solid var(--border);padding:1.3rem 4rem;display:flex;justify-content:space-between;align-items:center;color:var(--muted);font-size:0.73rem;background:#fff}
+
+/* CEREMONY CAROUSEL */
+.carousel-wrap{position:relative;max-width:900px;margin:0 auto 3.5rem;border-radius:22px;overflow:hidden;box-shadow:0 16px 50px rgba(15,82,160,0.18);background:#000}
+.carousel-track{display:flex;transition:transform 0.5s cubic-bezier(.4,0,.2,1)}
+.carousel-slide{min-width:100%;position:relative}
+.carousel-slide img{width:100%;height:500px;object-fit:cover;display:block}
+.slide-caption{position:absolute;bottom:0;left:0;right:0;padding:1.2rem 1.8rem;background:linear-gradient(transparent,rgba(10,31,68,0.82));color:#fff;font-size:0.82rem;font-weight:400;letter-spacing:0.03em}
+.carousel-btn{position:absolute;top:50%;transform:translateY(-50%);background:rgba(255,255,255,0.18);backdrop-filter:blur(8px);border:1.5px solid rgba(255,255,255,0.35);color:#fff;width:46px;height:46px;border-radius:50%;font-size:1.1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background 0.2s,transform 0.2s;z-index:10}
+.carousel-btn:hover{background:rgba(255,255,255,0.35);transform:translateY(-50%) scale(1.08)}
+.carousel-btn.prev{left:1.1rem}
+.carousel-btn.next{right:1.1rem}
+.carousel-dots{display:flex;justify-content:center;gap:0.55rem;margin-bottom:3rem}
+.dot{width:9px;height:9px;border-radius:50%;background:var(--border);border:none;cursor:pointer;transition:background 0.25s,transform 0.25s;padding:0}
+.dot.active{background:var(--accent);transform:scale(1.25)}
+
+/* CEREMONY VIDEO */
+.ceremony-video-wrap{max-width:900px;margin:0 auto;border-radius:22px;overflow:hidden;box-shadow:0 16px 50px rgba(15,82,160,0.18);background:#000}
+.ceremony-video-wrap video{width:100%;display:block;max-height:520px;background:#000}
+.video-label{text-align:center;margin-top:1rem;color:var(--muted);font-size:0.82rem;font-weight:300;font-style:italic}
+.video-carousel-wrap{position:relative;max-width:900px;margin:0 auto;border-radius:22px;overflow:hidden;box-shadow:0 16px 50px rgba(15,82,160,0.18);background:#000}
+.video-carousel-track{display:flex;transition:transform 0.5s cubic-bezier(.4,0,.2,1)}
+.video-carousel-slide{min-width:100%;position:relative}
+.video-carousel-slide video{width:100%;display:block;max-height:520px;background:#000}
+.video-carousel-labels{min-height:2rem}
+
+/* REVEAL */
+.reveal{opacity:0;transform:translateY(30px);transition:opacity 0.6s ease,transform 0.6s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+
+/* HAMBURGER MENU */
+.hamburger{display:none;flex-direction:column;justify-content:center;gap:5px;background:none;border:none;cursor:pointer;padding:4px;z-index:300}
+.hamburger span{display:block;width:24px;height:2.5px;background:var(--navy);border-radius:2px;transition:transform 0.3s,opacity 0.3s}
+.hamburger.open span:nth-child(1){transform:translateY(7.5px) rotate(45deg)}
+.hamburger.open span:nth-child(2){opacity:0}
+.hamburger.open span:nth-child(3){transform:translateY(-7.5px) rotate(-45deg)}
+.mobile-nav{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(223,240,252,0.98);backdrop-filter:blur(16px);z-index:250;flex-direction:column;align-items:center;justify-content:center;gap:2rem}
+.mobile-nav.open{display:flex}
+.mobile-nav a{text-decoration:none;color:var(--navy);font-size:1.3rem;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;padding-bottom:4px;border-bottom:2px solid transparent;transition:color 0.2s,border-color 0.2s}
+.mobile-nav a:hover{color:var(--accent);border-bottom-color:var(--accent)}
+.mobile-nav .nav-cta{padding:0.7rem 2rem;background:linear-gradient(135deg,var(--bright),var(--blue));border-radius:100px;color:white!important;border-bottom:none!important;font-size:1rem}
+
+/* RESPONSIVE — FIX: was .nav-links, now correctly .nav-center */
+@media(max-width:900px){
+  .hero{grid-template-columns:1fr;padding:6rem 1.5rem 4rem}
+  .hero-img-wrap{display:none}
+  .split{grid-template-columns:1fr}
+  .split.reverse{direction:ltr}
+  .photo-strip{grid-template-columns:1fr 1fr}
+}
+@media(max-width:1100px){
+  nav{padding:0.9rem 1.2rem}
+  .nav-center{display:none}
+  .hamburger{display:flex}
+}
+@media(max-width:768px){
+  section{padding:4.5rem 1.2rem}
+  .cta-section{margin:0 1.2rem 3.5rem;padding:3rem 1.5rem}
+  footer{padding:2rem 1.2rem;grid-template-columns:1fr}
+  .footer-bottom{padding:1rem 1.2rem;flex-direction:column;gap:0.3rem;text-align:center}
+  .vm-grid{grid-template-columns:1fr}
+  .stats{gap:1.2rem}
+  .chain-arrow{display:none}
+  .photo-strip{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <!-- LEFT: WaterSom Logo -->
+  <a href="#" class="logo">
+    <div class="logo-icon" style="padding:4px;background:#fff">
+        <img src="watersom.jpg" alt="WaterSom Solutions Logo" style="width:100%;height:100%;object-fit:contain;display:block">
+      </div>
+    <div>
+      <div class="logo-text">Water<span style="color:var(--accent)">Som</span> Solutions<span class="sub">Testing &amp; Treatment</span></div>
+    </div>
+  </a>
+
+  <!-- CENTER: Nav links -->
+  <ul class="nav-center">
+    <li><a href="#home" class="active">Home</a></li>
+    <li><a href="#ceremony">Ceremony</a></li>
+    <li><a href="#inauguration">Milestone</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#ppp">PPP Model</a></li>
+  </ul>
+
+  <!-- RIGHT: Contact button + Banaadir Logo + Hamburger -->
+  <div class="nav-right">
+    <div class="lang-select">
+      <select id="langPicker" aria-label="Select language" onchange="setLanguage(this.value)">
+        <option value="en">English</option>
+        <option value="so">Soomaali</option>
+        <option value="ar">العربية</option>
+      </select>
+    </div>
+    <a href="#contact" class="nav-cta">Contact</a>
+    <img src="data:image/jpeg;base64,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" class="banaadir-logo" alt="Banaadir Regional Administration Coat of Arms">
+    <button class="hamburger" id="hamburger" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- MOBILE NAV OVERLAY -->
+<div class="mobile-nav" id="mobileNav">
+  <a href="#home"        onclick="closeMobileNav()">Home</a>
+  <a href="#ceremony"    onclick="closeMobileNav()">Ceremony</a>
+  <a href="#inauguration"onclick="closeMobileNav()">Milestone</a>
+  <a href="#about"       onclick="closeMobileNav()">About</a>
+  <a href="#services"    onclick="closeMobileNav()">Services</a>
+  <a href="#ppp"         onclick="closeMobileNav()">PPP Model</a>
+  <a href="#contact" class="nav-cta" onclick="closeMobileNav()">Contact</a>
+  <div class="lang-select">
+    <select id="langPickerMobile" aria-label="Select language" onchange="setLanguage(this.value)">
+      <option value="en">English</option>
+      <option value="so">Soomaali</option>
+      <option value="ar">العربية</option>
+    </select>
+  </div>
+</div>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-content">
+    <span class="badge">💧 Testing &amp; Treatment · Somalia</span>
+    <h1><em>Banaadir Region</em><br>Water Laboratory</h1>
+    <p>WaterSom Solutions delivers advanced water quality testing, treatment, and public health support — protecting lives through science, partnerships, and community engagement.</p>
+    <div class="hero-btns">
+      <a href="#services" class="btn-primary">Our Services</a>
+      <a href="#about" class="btn-ghost">Learn More</a>
+    </div>
+    <div class="stats">
+      <div><div class="stat-val">WHO</div><div class="stat-label">Aligned Standards</div></div>
+      <div><div class="stat-val">PPP</div><div class="stat-label">Partnership Model</div></div>
+      <div><div class="stat-val">360°</div><div class="stat-label">Safety Chain</div></div>
+      <div><div class="stat-val">24/7</div><div class="stat-label">Emergency Response</div></div>
+    </div>
+  </div>
+  <div class="hero-img-wrap">
+    <!-- img6: scientist at microscope -->
+    <img src="img1.jpg" alt="WaterSom scientist operating flocculation equipment">
+
+  </div>
+  <div class="hero-wave">
+    <svg viewBox="0 0 1440 60" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" style="width:100%;height:60px;display:block">
+      <path d="M0,30 C360,60 1080,0 1440,30 L1440,60 L0,60 Z" fill="#f0f7ff"/>
+    </svg>
+  </div>
+</section>
+
+<!-- CEREMONY -->
+<section id="ceremony" class="alt-bg">
+  <span class="section-tag">Highlights</span>
+  <h2 class="section-title">Ceremony <span>Gallery</span></h2>
+  <p class="section-sub">A look back at the memorable moments from the inauguration of the Banaadir Region Water Laboratory.</p>
+
+  <div class="carousel-wrap reveal" id="ceremonyCarousel">
+    <div class="carousel-track" id="cTrack">
+
+      <div class="carousel-slide">
+        <img src="ceremony1.jpg" alt="Official address at inauguration ceremony">
+        <div class="slide-caption">Address at the inauguration of the Banaadir Region Water Laboratory</div>
+      </div>
+
+      <div class="carousel-slide">
+        <img src="ceremony2.jpg" alt="Senior official speaking at the ceremony">
+        <div class="slide-caption">Senior official remarks — Watersom Solutions inauguration, Mogadishu</div>
+      </div>
+
+      <div class="carousel-slide">
+        <img src="ceremony3.jpg" alt="Xirmooyinka Maamuus address">
+        <div class="slide-caption">Xirmooyinka Maamuus delivering remarks at the ceremony</div>
+      </div>
+
+      <div class="carousel-slide">
+        <img src="ceremony4.jpg" alt="Officials touring the laboratory">
+        <div class="slide-caption">Delegation touring the laboratory facilities during the inauguration</div>
+      </div>
+
+    </div><!-- /carousel-track -->
+
+    <button class="carousel-btn prev" id="cPrev" aria-label="Previous">&#8592;</button>
+    <button class="carousel-btn next" id="cNext" aria-label="Next">&#8594;</button>
+  </div><!-- /carousel-wrap -->
+
+  <div class="carousel-dots" id="cDots"></div>
+
+  <!-- VIDEO CAROUSEL: gobalka + ceremony -->
+  <div class="video-carousel-wrap reveal" id="videoCarousel">
+    <div class="video-carousel-track" id="vcTrack">
+      <div class="video-carousel-slide">
+        <video controls preload="metadata" playsinline id="vcVideo0">
+          <source src="gobalka.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+      </div>
+      <div class="video-carousel-slide">
+        <video controls preload="metadata" poster="ceremony1.jpg" playsinline id="vcVideo1">
+          <source src="ceremony.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+      </div>
+    </div>
+    <button class="carousel-btn prev" id="vcPrev" aria-label="Previous video" onclick="vcMove(-1)">&#8592;</button>
+    <button class="carousel-btn next" id="vcNext" aria-label="Next video" onclick="vcMove(1)">&#8594;</button>
+  </div>
+  <div class="video-carousel-labels">
+    <p class="video-label" id="vcLabel0" style="display:block">🎬 Gobalka — WaterSom Solutions, Banaadir Region</p>
+    <p class="video-label" id="vcLabel1" style="display:none">📹 Inauguration Ceremony — Banaadir Region Water Laboratory, Mogadishu</p>
+  </div>
+  <div class="carousel-dots" id="vcDots" style="margin-bottom:2rem"></div>
+</section>
+
+<!-- INAUGURATION SECTION — appears once only (duplicate removed) -->
+<section id="inauguration" class="alt-bg">
+  <span class="section-tag">Historic Milestone</span>
+  <h2 class="section-title">Milestone <span>Ceremony</span></h2>
+  <p class="section-sub">Watersom Solutions &amp; Banaadir Regional Administration Laboratory for Water Safety and Disease Prevention.</p>
+
+  <div class="split reveal" style="margin-bottom:4rem">
+    <div class="split-img">
+      <img src="inaug1.jpg" alt="Inauguration ceremony officials">
+    </div>
+    <div class="split-text">
+      <h2>A New Chapter for <span>Public Health</span></h2>
+      <p>The inauguration of the Banaadir Region Water Laboratory marks a landmark moment for water safety in Somalia. Senior officials, scientists, and community leaders gathered to witness the launch of this state-of-the-art facility dedicated to protecting public health.</p>
+      <p>The laboratory is a result of a Public–Private Partnership between Watersom Solutions and the Banaadir Regional Administration — a commitment to ensuring every drop of water consumed in the region is safe, tested, and trusted.</p>
+    </div>
+  </div>
+
+  <div class="split reverse reveal">
+    <div class="split-img">
+      <img src="img8.jpg" alt="Watersom Solutions team and partners at the inauguration">
+    </div>
+    <div class="split-text">
+      <h2>Our Team &amp; <span>Partners</span></h2>
+      <p>The ceremony brought together the dedicated team of laboratory scientists, public health officials, government representatives, and international partners who made this vision a reality.</p>
+      <ul>
+        <li>Banaadir Regional Administration officials</li>
+        <li>Watersom Solutions scientific team</li>
+        <li>Public health &amp; WASH sector partners</li>
+        <li>Community health representatives</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="reveal" style="max-width:900px;margin:3rem auto 0;background:linear-gradient(135deg,var(--bright),var(--blue));border-radius:20px;padding:2.5rem 3rem;text-align:center;box-shadow:0 12px 40px rgba(15,82,160,0.25)">
+    <p style="font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:700;color:#fff;line-height:1.6;font-style:italic">"Shaybaarka Biyaha Gobolka Banaadir ee Watersom."</p>
+    <p style="color:rgba(255,255,255,0.8);font-size:0.88rem;margin-top:0.8rem;font-weight:300">Banaadir Region Water Laboratory — Mogadishu, Somalia</p>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about" class="alt-bg">
+  <span class="section-tag">Who We Are</span>
+  <h2 class="section-title">Vision, Mission &amp; <span>Core Values</span></h2>
+  <p class="section-sub">Grounded in science, driven by public health, committed to every community we serve across Somalia.</p>
+  <div class="vm-grid reveal">
+    <div class="vm-box">
+      <h3>🎯 Vision</h3>
+      <p>To become Somalia's leading water quality and public health support company, ensuring <strong style="color:var(--blue)">safe water for all.</strong></p>
+    </div>
+    <div class="vm-box">
+      <h3>🚀 Mission</h3>
+      <p>To protect communities by delivering reliable water testing, effective treatment solutions, and evidence-based public health interventions.</p>
+    </div>
+  </div>
+  <div class="values-grid reveal">
+    <span class="value-pill">🔬 Scientific Integrity</span>
+    <span class="value-pill">❤️ Public Health First</span>
+    <span class="value-pill">✅ Accuracy &amp; Reliability</span>
+    <span class="value-pill">⚡ Rapid Response</span>
+    <span class="value-pill">🤝 Partnership &amp; Accountability</span>
+    <span class="value-pill">🌍 Community-Centered Approach</span>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <span class="section-tag">How We Work</span>
+  <h2 class="section-title">The Complete Water <span>Safety Chain</span></h2>
+  <p class="section-sub">From field sampling to community protection — an integrated, end-to-end solution.</p>
+  <!-- CYCLE FRAMEWORK IMAGE -->
+  <div class="reveal" style="max-width:820px;margin:0 auto 3.5rem;text-align:center">
+    <img src="images/img-694b2f3b.jpg" alt="Water Sampling, Testing and Treatment Cycle Framework — WaterSom Solutions &amp; Banaadir Regional Administration" style="width:100%;max-width:700px;border-radius:20px;border:1px solid var(--border);box-shadow:0 8px 30px rgba(15,82,160,0.12)">
+    <p style="margin-top:0.8rem;font-size:0.78rem;color:var(--muted);letter-spacing:0.12em;text-transform:uppercase;font-weight:500">Water Sampling, Testing &amp; Treatment Cycle Framework</p>
+  </div>
+
+  <div class="split reveal" style="margin-bottom:4rem">
+    <div class="split-img">
+      <!-- img1: water flocculation / lab testing -->
+      <img src="https://images.unsplash.com/photo-1576086213369-97a306d36557?w=800&q=80" alt="Water flocculation testing" crossorigin="anonymous">
+    </div>
+    <div class="split-text">
+      <h2>Bacteriological &amp; <span>Chemical Testing</span></h2>
+      <p>Our laboratory performs comprehensive analysis on every water sample — detecting contamination before it reaches communities.</p>
+      <ul>
+        <li>E. coli &amp; faecal coliform detection</li>
+        <li>Chemical: salinity, nitrates, fluoride, heavy metals</li>
+        <li>Physical: turbidity, color, odor, temperature</li>
+        <li>Flocculation &amp; coagulation testing</li>
+        <li>All results benchmarked to WHO standards</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="split reverse reveal">
+    <div class="split-img">
+      <img src="img2.jpg" alt="HACH DR6000 spectrophotometer analysis">
+    </div>
+    <div class="split-text">
+      <h2>Advanced <span>Instrument Analysis</span></h2>
+      <p>We use cutting-edge equipment including the HACH DR6000 spectrophotometer for precise chemical and physical water quality measurements.</p>
+      <ul>
+        <li>Spectrophotometric analysis</li>
+        <li>Chlorine residual measurement</li>
+        <li>Heavy metal detection</li>
+        <li>Real-time digital reporting</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Photo strip: three lab photos -->
+  <div class="photo-strip reveal">
+    <img src="img4.jpg" alt="Lab technician at microscope">
+    <img src="img3.jpg" alt="Turbidity meter">
+    <img src="img5.jpg" alt="Flocculation flasks in laboratory">
+  </div>
+
+  <!-- TREATMENT INTRO -->
+  <div class="reveal" style="max-width:1160px;margin:4rem auto 0">
+    <span class="section-tag" style="text-align:left;margin-bottom:0.6rem">Treatment Services</span>
+    <h2 style="font-family:'Playfair Display',serif;font-size:clamp(1.6rem,2.5vw,2.2rem);font-weight:700;color:var(--navy);margin-bottom:1.2rem">
+      Water <span style="background:linear-gradient(135deg,var(--accent),var(--bright));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;font-style:italic">Treatment</span> for the Public
+    </h2>
+    <p style="color:var(--text);font-size:0.95rem;line-height:1.85;font-weight:300;max-width:780px;margin-bottom:2rem">
+      Beyond testing, WaterSom Solutions provides direct water treatment interventions for communities, institutions, and public facilities across Somalia. Once a risk is identified, our team mobilises rapidly to neutralise contamination and restore safe, clean water to the people who need it most.
+    </p>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1rem">
+      <div class="card" style="background:#e3f2fd;border:none">
+        <div class="card-icon" style="background:rgba(13,71,161,0.1);border:none">💧</div>
+        <h3 style="color:#0d47a1">Chlorination &amp; Disinfection</h3>
+        <p>Point-of-use and community-scale chlorination to eliminate bacterial and viral pathogens from drinking water sources.</p>
+      </div>
+      <div class="card" style="background:#e8f5e9;border:none">
+        <div class="card-icon" style="background:rgba(27,94,32,0.1);border:none">🌿</div>
+        <h3 style="color:#1b5e20">Coagulation &amp; Filtration</h3>
+        <p>Removing suspended solids, turbidity, and chemical contaminants through flocculation and multi-stage filtration processes.</p>
+      </div>
+      <div class="card" style="background:#fff3e0;border:none">
+        <div class="card-icon" style="background:rgba(230,81,0,0.1);border:none">🏘️</div>
+        <h3 style="color:#e65100">Community &amp; IDP Camps</h3>
+        <p>Emergency and sustained treatment solutions deployed to internally displaced communities, schools, and health facilities.</p>
+      </div>
+      <div class="card" style="background:#f3e5f5;border:none">
+        <div class="card-icon" style="background:rgba(74,20,140,0.1);border:none">🚰</div>
+        <h3 style="color:#4a148c">Water Supply Rehabilitation</h3>
+        <p>Supporting municipal authorities in rehabilitating contaminated water supply networks to restore safe distribution to the public.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PPP -->
+<section id="ppp" class="alt-bg">
+  <span class="section-tag">Our Model</span>
+  <h2 class="section-title">Public–Private <span>Partnership</span></h2>
+  <p class="section-sub">WaterSom acts as a technical implementation partner for governments, municipalities, and international organizations.</p>
+  <div class="ppp-grid reveal">
+    <div class="ppp-box"><div class="icon">🏛️</div><h4>Government Ministries</h4><p>Health, Water &amp; Environment ministries across Somalia</p></div>
+    <div class="ppp-box"><div class="icon">🏙️</div><h4>Municipal Authorities</h4><p>Banaadir Regional Administration &amp; local councils</p></div>
+    <div class="ppp-box"><div class="icon">🌐</div><h4>UN &amp; NGOs</h4><p>International organizations and humanitarian partners</p></div>
+    <div class="ppp-box"><div class="icon">🏭</div><h4>Private Sector</h4><p>Private water suppliers and industrial clients</p></div>
+  </div>
+  <div class="cards" style="max-width:880px;margin-left:auto;margin-right:auto">
+    <div class="card reveal" style="text-align:center;background:#e8f5e9;border:none"><div class="card-icon" style="margin:0 auto 1rem;background:rgba(27,94,32,0.1)">📋</div><h3 style="color:#1b5e20">Outsourced Monitoring</h3><p>Cost-effective water quality monitoring on behalf of institutions</p></div>
+    <div class="card reveal" style="text-align:center;background:#fce4ec;border:none"><div class="card-icon" style="margin:0 auto 1rem;background:rgba(136,14,79,0.1)">🚨</div><h3 style="color:#880e4f">Emergency Response</h3><p>Rapid mobilization for contamination and disease outbreak scenarios</p></div>
+    <div class="card reveal" style="text-align:center;background:#f3e5f5;border:none"><div class="card-icon" style="margin:0 auto 1rem;background:rgba(74,20,140,0.1)">🎓</div><h3 style="color:#4a148c">Capacity Building</h3><p>Technical advisory and training programs for partner institutions</p></div>
+  </div>
+</section>
+
+<!-- IMPACT -->
+<section>
+  <span class="section-tag">Impact &amp; Future</span>
+  <h2 class="section-title">Social &amp; Health <span>Impact</span></h2>
+  <p class="section-sub">Our work measurably improves lives — from IDP camps to health facilities and schools across Somalia.</p>
+  <div class="split reveal" style="margin-bottom:3rem">
+    <div class="split-text">
+      <h2>Protecting <span>Public Health</span> Through Science</h2>
+      <p>Every test we run, every sample we analyse, and every treatment we deploy is a direct intervention against waterborne disease in Somalia's most vulnerable communities.</p>
+      <ul>
+        <li>Reduction of cholera and diarrhea outbreaks</li>
+        <li>Safe water for IDPs, schools &amp; health facilities</li>
+        <li>Strengthened government response systems</li>
+        <li>Expanding to advanced labs &amp; mobile testing units</li>
+      </ul>
+    </div>
+    <div class="split-img">
+      <!-- img4: lab flask / water analysis -->
+      <img src="https://images.unsplash.com/photo-1518152006812-edab29b069ac?w=800&q=80" alt="Laboratory flask analysis" crossorigin="anonymous">
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<div class="cta-section reveal" id="contact">
+  <h2>Partner With WaterSom Solutions</h2>
+  <p>Contact our team for water testing, treatment, or a public health consultation.</p>
+  <a href="mailto:info@watersom.net" class="btn-cta">Get In Touch</a>
+  <div style="margin-top:1.4rem">
+    <a href="https://www.facebook.com/share/1DJPJHoR9k/" target="_blank" rel="noopener noreferrer" aria-label="WaterSom on Facebook" style="display:inline-flex;align-items:center;gap:0.55rem;color:#fff;text-decoration:none;font-size:0.92rem;font-weight:500">
+      <svg viewBox="0 0 24 24" width="26" height="26" fill="#1877F2" style="background:#fff;border-radius:50%" aria-hidden="true">
+        <path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z"/>
+      </svg>
+      Follow us on Facebook
+    </a>
+  </div>
+  <p class="cta-tagline">"Safe, Tested, and Trusted — every drop of water we protect."</p>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-col">
+    <a href="#" style="display:flex;flex-direction:column;align-items:flex-start;gap:1rem;text-decoration:none;margin-bottom:0.6rem">
+      <div style="width:80px;height:80px;border-radius:50%;background:#fff;border:3px solid #f47920;box-shadow:0 4px 20px rgba(15,82,160,0.15);display:flex;align-items:center;justify-content:center;overflow:hidden;flex-shrink:0">
+        <img src="watersom.jpg" alt="WaterSom Solutions Logo" style="width:74px;height:74px;object-fit:contain">
+      </div>
+      <div class="logo-text" style="font-size:1.1rem">Water<span style="color:var(--accent)">Som</span> Solutions<span class="sub">Testing &amp; Treatment</span></div>
+    </a>
+    <p class="footer-desc">Advanced water quality management, laboratory testing, and public health solutions across Somalia.</p>
+  </div>
+  <div class="footer-col">
+    <h4>Quick Links</h4>
+    <a href="#about">About Us</a>
+    <a href="#services">Our Services</a>
+    <a href="#ppp">PPP Model</a>
+    <a href="#contact">Contact</a>
+  </div>
+  <div class="footer-col">
+    <h4>Contact</h4>
+    <p>📍 Head Office: Court Road, Hamar Jabjab, Mogadishu, Banaadir Region, Somalia.</p>
+    <p>📧 info@watersom.net</p>
+    <p>📞 816854</p>
+    <p>🌐 Operational: Nationwide</p>
+    <p>Sector: Water Quality · WASH · Environmental Health</p>
+  </div>
+</footer>
+<div class="footer-bottom">
+  <span>© 2026 WaterSom Solutions Somalia. All rights reserved.</span>
+  <span>Safe Water · Tested · Trusted</span>
+</div>
+
+<script>
+// Scroll-reveal animation
+const reveals = document.querySelectorAll('.reveal');
+const obs = new IntersectionObserver((entries) => {
+  entries.forEach((e, i) => {
+    if (e.isIntersecting) setTimeout(() => e.target.classList.add('visible'), i * 80);
+  });
+}, { threshold: 0.08 });
+reveals.forEach(el => obs.observe(el));
+
+// ── HAMBURGER MENU ─────────────────────────────────────────────────
+const hamburger  = document.getElementById('hamburger');
+const mobileNav  = document.getElementById('mobileNav');
+hamburger.addEventListener('click', () => {
+  const isOpen = mobileNav.classList.toggle('open');
+  hamburger.classList.toggle('open', isOpen);
+  document.body.style.overflow = isOpen ? 'hidden' : '';
+});
+function closeMobileNav() {
+  mobileNav.classList.remove('open');
+  hamburger.classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+// ── CEREMONY CAROUSEL ──────────────────────────────────────────────
+(function () {
+  const track   = document.getElementById('cTrack');
+  const slides  = track ? track.querySelectorAll('.carousel-slide') : [];
+  const dotsWrap= document.getElementById('cDots');
+  if (!slides.length) return;
+
+  let current = 0;
+  let timer;
+
+  // Build dots
+  slides.forEach((_, i) => {
+    const d = document.createElement('button');
+    d.className = 'dot' + (i === 0 ? ' active' : '');
+    d.setAttribute('aria-label', 'Go to slide ' + (i + 1));
+    d.addEventListener('click', () => goTo(i));
+    dotsWrap.appendChild(d);
+  });
+
+  function goTo(n) {
+    current = (n + slides.length) % slides.length;
+    track.style.transform = `translateX(-${current * 100}%)`;
+    dotsWrap.querySelectorAll('.dot').forEach((d, i) =>
+      d.classList.toggle('active', i === current));
+    resetTimer();
+  }
+
+  function resetTimer() {
+    clearInterval(timer);
+    timer = setInterval(() => goTo(current + 1), 5000);
+  }
+
+  document.getElementById('cPrev').addEventListener('click', () => goTo(current - 1));
+  document.getElementById('cNext').addEventListener('click', () => goTo(current + 1));
+
+  // Keyboard navigation when carousel is focused
+  document.getElementById('ceremonyCarousel').addEventListener('keydown', e => {
+    if (e.key === 'ArrowLeft')  goTo(current - 1);
+    if (e.key === 'ArrowRight') goTo(current + 1);
+  });
+
+  // Touch / swipe support
+  let startX = 0;
+  track.addEventListener('touchstart', e => { startX = e.touches[0].clientX; }, {passive:true});
+  track.addEventListener('touchend',   e => {
+    const dx = e.changedTouches[0].clientX - startX;
+    if (Math.abs(dx) > 40) goTo(current + (dx < 0 ? 1 : -1));
+  }, {passive:true});
+
+  resetTimer();
+})();
+
+// ── VIDEO CAROUSEL ──────────────────────────────────────────────────
+(function () {
+  const track   = document.getElementById('vcTrack');
+  const dotsWrap= document.getElementById('vcDots');
+  const labels  = document.querySelectorAll('[id^="vcLabel"]');
+  const videos  = document.querySelectorAll('[id^="vcVideo"]');
+  if (!track) return;
+
+  const total = videos.length;
+  let current = 0;
+
+  // Build dots
+  Array.from({length: total}).forEach((_, i) => {
+    const d = document.createElement('button');
+    d.className = 'dot' + (i === 0 ? ' active' : '');
+    d.setAttribute('aria-label', 'Go to video ' + (i + 1));
+    d.addEventListener('click', () => vcGoTo(i));
+    dotsWrap.appendChild(d);
+  });
+
+  window.vcMove = function(dir) { vcGoTo(current + dir); };
+
+  function vcGoTo(n) {
+    // Pause the current video before sliding
+    if (videos[current]) videos[current].pause();
+    current = (n + total) % total;
+    track.style.transform = `translateX(-${current * 100}%)`;
+    dotsWrap.querySelectorAll('.dot').forEach((d, i) =>
+      d.classList.toggle('active', i === current));
+    labels.forEach((l, i) => l.style.display = i === current ? 'block' : 'none');
+  }
+
+  // Touch swipe
+  let startX = 0;
+  track.addEventListener('touchstart', e => { startX = e.touches[0].clientX; }, {passive:true});
+  track.addEventListener('touchend',   e => {
+    const dx = e.changedTouches[0].clientX - startX;
+    if (Math.abs(dx) > 40) vcGoTo(current + (dx < 0 ? 1 : -1));
+  }, {passive:true});
+})();
+
+const sections = document.querySelectorAll('section[id]');
+const navLinks = document.querySelectorAll('.nav-center a');
+window.addEventListener('scroll', () => {
+  let cur = '';
+  sections.forEach(s => { if (window.scrollY >= s.offsetTop - 120) cur = s.id; });
+  navLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + cur));
+}, { passive: true });
+</script>
+<div id="google_translate_element"></div>
+<script>
+function googleTranslateElementInit(){
+  new google.translate.TranslateElement({
+    pageLanguage:'en',
+    includedLanguages:'en,so,ar',
+    autoDisplay:false
+  },'google_translate_element');
+}
+function setCookie(name,value){
+  var domain=location.hostname;
+  document.cookie=name+'='+value+';path=/';
+  document.cookie=name+'='+value+';path=/;domain='+domain;
+  if(domain.indexOf('.')>-1){
+    document.cookie=name+'='+value+';path=/;domain=.'+domain;
+  }
+}
+function setLanguage(lang){
+  setCookie('googtrans', lang==='en' ? '/en/en' : '/en/'+lang);
+  // keep both pickers in sync
+  var d=document.getElementById('langPicker'),m=document.getElementById('langPickerMobile');
+  if(d)d.value=lang; if(m)m.value=lang;
+  location.reload();
+}
+// On load, reflect current language in the pickers
+(function(){
+  var match=document.cookie.match(/googtrans=\/[^\/]+\/([^;]+)/);
+  var current=match?match[1]:'en';
+  document.addEventListener('DOMContentLoaded',function(){
+    var d=document.getElementById('langPicker'),m=document.getElementById('langPickerMobile');
+    if(d)d.value=current; if(m)m.value=current;
+  });
+})();
+</script>
+<script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+</body>
+</html>
