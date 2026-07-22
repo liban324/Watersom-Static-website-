@@ -401,35 +401,35 @@ footer{position:relative;z-index:10;border-top:1px solid var(--border);padding:3
 
   <div class="carousel-dots" id="cDots"></div>
 
-  <!-- VIDEO CAROUSEL: gobalka + ceremony -->
+  <!-- VIDEO CAROUSEL — sorted newest-first automatically by data-date; paste new slides anywhere in this list -->
   <div class="video-carousel-wrap reveal" id="videoCarousel">
     <div class="video-carousel-track" id="vcTrack">
-      <div class="video-carousel-slide">
-        <video controls preload="metadata" playsinline id="vcVideo0">
+      <div class="video-carousel-slide" data-date="2026-07-20" data-label="💧 Mogadishu's local government conducts its first water-quality inspection since 1991 — July 20, 2026">
+        <video controls preload="metadata" playsinline>
           <source src="images/mogadishu-local-govt-water-testing.mp4" type="video/mp4">
           Your browser does not support the video tag.
         </video>
       </div>
-      <div class="video-carousel-slide">
-        <video controls preload="metadata" playsinline id="vcVideo1">
+      <div class="video-carousel-slide" data-date="2026-07-20" data-label="🎤 Deputy Chairman Ciise Maxamuud Guure praises the water companies and the water lab's efforts in Banaadir region — July 20, 2026">
+        <video controls preload="metadata" playsinline>
           <source src="images/deputy-chairman-statement.mp4" type="video/mp4">
           Your browser does not support the video tag.
         </video>
       </div>
-      <div class="video-carousel-slide">
-        <video controls preload="metadata" playsinline id="vcVideo2">
+      <div class="video-carousel-slide" data-date="2026-07-20" data-label="🔬 Water lab operators in Banaadir region inspect the city's water wells and the water that cleans the water industry — July 20, 2026">
+        <video controls preload="metadata" playsinline>
           <source src="images/well-inspection-statement.mp4" type="video/mp4">
           Your browser does not support the video tag.
         </video>
       </div>
-      <div class="video-carousel-slide">
-        <video controls preload="metadata" playsinline id="vcVideo3">
+      <div class="video-carousel-slide" data-date="2026-06-06" data-label="🎬 Gobalka — WaterSom Solutions, Banaadir Region">
+        <video controls preload="metadata" playsinline>
           <source src="images/gobalka.mp4" type="video/mp4">
           Your browser does not support the video tag.
         </video>
       </div>
-      <div class="video-carousel-slide">
-        <video controls preload="metadata" poster="images/ceremony1.jpg" playsinline id="vcVideo4">
+      <div class="video-carousel-slide" data-date="2026-05-07" data-label="📹 Inauguration Ceremony — Banaadir Region Water Laboratory, Mogadishu">
+        <video controls preload="metadata" poster="images/ceremony1.jpg" playsinline>
           <source src="images/ceremony.mp4" type="video/mp4">
           Your browser does not support the video tag.
         </video>
@@ -438,13 +438,7 @@ footer{position:relative;z-index:10;border-top:1px solid var(--border);padding:3
     <button class="carousel-btn prev" id="vcPrev" aria-label="Previous video" onclick="vcMove(-1)">&#8592;</button>
     <button class="carousel-btn next" id="vcNext" aria-label="Next video" onclick="vcMove(1)">&#8594;</button>
   </div>
-  <div class="video-carousel-labels">
-    <p class="video-label" id="vcLabel0" style="display:block">💧 Mogadishu's local government conducts its first water-quality inspection since 1991 — July 20, 2026</p>
-    <p class="video-label" id="vcLabel1" style="display:none">🎤 Deputy Chairman Ciise Maxamuud Guure praises the water companies and the water lab's efforts in Banaadir region — July 20, 2026</p>
-    <p class="video-label" id="vcLabel2" style="display:none">🔬 Water lab operators in Banaadir region inspect the city's water wells and the water that cleans the water industry — July 20, 2026</p>
-    <p class="video-label" id="vcLabel3" style="display:none">🎬 Gobalka — WaterSom Solutions, Banaadir Region</p>
-    <p class="video-label" id="vcLabel4" style="display:none">📹 Inauguration Ceremony — Banaadir Region Water Laboratory, Mogadishu</p>
-  </div>
+  <div class="video-carousel-labels" id="vcLabelsWrap"></div>
   <div class="carousel-dots" id="vcDots" style="margin-bottom:2rem"></div>
 </section>
 
@@ -763,16 +757,37 @@ function closeMobileNav() {
   resetTimer();
 })();
 
-// ── VIDEO CAROUSEL ──────────────────────────────────────────────────
+// ── VIDEO CAROUSEL — auto-sorts slides newest-first by data-date ────
 (function () {
-  const track   = document.getElementById('vcTrack');
-  const dotsWrap= document.getElementById('vcDots');
-  const labels  = document.querySelectorAll('[id^="vcLabel"]');
-  const videos  = document.querySelectorAll('[id^="vcVideo"]');
+  const track     = document.getElementById('vcTrack');
+  const dotsWrap  = document.getElementById('vcDots');
+  const labelsWrap= document.getElementById('vcLabelsWrap');
   if (!track) return;
 
-  const total = videos.length;
-  let current = 0;
+  // Sort slides in the DOM by data-date, descending (newest first).
+  // Slides missing a data-date are treated as oldest and pushed to the end.
+  const slides = Array.from(track.querySelectorAll('.video-carousel-slide'));
+  slides
+    .sort((a, b) => {
+      const dateA = a.dataset.date || '0000-00-00';
+      const dateB = b.dataset.date || '0000-00-00';
+      return dateB.localeCompare(dateA);
+    })
+    .forEach(slide => track.appendChild(slide)); // re-append in sorted order
+
+  const videos = slides.map(s => s.querySelector('video'));
+  const total  = slides.length;
+  let current  = 0;
+
+  // Build labels from each slide's data-label
+  slides.forEach((slide, i) => {
+    const p = document.createElement('p');
+    p.className = 'video-label';
+    p.style.display = i === 0 ? 'block' : 'none';
+    p.textContent = slide.dataset.label || '';
+    labelsWrap.appendChild(p);
+  });
+  const labels = labelsWrap.querySelectorAll('.video-label');
 
   // Build dots
   Array.from({length: total}).forEach((_, i) => {
